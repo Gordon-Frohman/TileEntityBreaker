@@ -21,16 +21,11 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(
-    modid = Tags.MODID,
-    version = TileEntityBreaker.VERSION,
-    name = Tags.MODNAME,
-    acceptedMinecraftVersions = "[1.7.10]")
+@Mod(modid = Tags.MODID, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
 public class TileEntityBreaker {
 
     public static final String ID = Tags.MODID;
     public static final String NAME = Tags.MODNAME;
-    public static final String VERSION = "1.0.0";
 
     public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
 
