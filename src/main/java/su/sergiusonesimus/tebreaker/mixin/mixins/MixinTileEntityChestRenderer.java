@@ -38,7 +38,6 @@ public class MixinTileEntityChestRenderer extends MixinTileEntitySpecialRenderer
             DestroyBlockProgress destroyNeighboutBlockProgress = TileEntityBreaker
                 .getTileEntityDestroyProgress(neighbourTE);
             if (destroyBlockProgress != null) {
-                TileEntityBreaker.breakpoint();
                 GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
                 GL11.glPushMatrix();
 
@@ -65,7 +64,6 @@ public class MixinTileEntityChestRenderer extends MixinTileEntitySpecialRenderer
                 OpenGlHelper.glBlendFunc(770, 771, 1, 0);
             }
             if (destroyNeighboutBlockProgress != null) {
-                TileEntityBreaker.breakpoint();
                 GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
                 GL11.glPushMatrix();
 

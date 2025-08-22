@@ -113,8 +113,4 @@ public class TileEntityBreaker {
         return proxy.getTileEntityDestroyProgress(te);
     }
 
-    public static void breakpoint() {
-        int x = 0;
-    }
-
 }

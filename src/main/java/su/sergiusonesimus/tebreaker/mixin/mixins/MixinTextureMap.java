@@ -28,11 +28,9 @@ public class MixinTextureMap {
             target = "Lnet/minecraft/client/resources/IResourceManager;getResource(Lnet/minecraft/util/ResourceLocation;)Lnet/minecraft/client/resources/IResource;"))
     public IResource getResource(IResourceManager resourceManager, ResourceLocation resourceLocation,
         Operation<IResource> original) {
-        // TileEntityBreaker.breakpoint();
         String resourcePath = resourceLocation.getResourcePath();
         if (resourcePath.contains("destroy_stage_")) {
             breakTextureID = Integer.valueOf(resourcePath.substring(30, 31));
-            // breakTextureID = resourceLocation.getResourcePath().
         }
         return original.call(resourceManager, resourceLocation);
     }
@@ -43,7 +41,6 @@ public class MixinTextureMap {
             value = "INVOKE",
             target = "Ljavax/imageio/ImageIO;read(Ljava/io/InputStream;)Ljava/awt/image/BufferedImage;"))
     public BufferedImage read(InputStream inputStream, Operation<BufferedImage> original) {
-        // TileEntityBreaker.breakpoint();
         BufferedImage result = original.call(inputStream);
         if (breakTextureID != null) {
             BreakTextureGenerator.destroyBlockIconsMap.put(breakTextureID, result);
