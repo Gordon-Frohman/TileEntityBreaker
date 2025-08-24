@@ -103,8 +103,7 @@ public class TileEntityBreaker {
         proxy.registerTileEntity(teClass, modelSelector);
     }
 
-    public static void registerModel(Class<? extends TileEntity> teClass, String modelName, int textureWidth,
-        int textureHeight, ModelRenderer... models) {
+    public static void registerModel(String modelName, int textureWidth, int textureHeight, ModelRenderer... models) {
         proxy.registerModel(modelName, textureWidth, textureHeight, models);
     }
 
