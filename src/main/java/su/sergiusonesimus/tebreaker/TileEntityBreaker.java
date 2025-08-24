@@ -95,11 +95,12 @@ public class TileEntityBreaker {
         return stages == null ? null : stages[destructionStage];
     }
 
-    public void registerTileEntity(Class<? extends TileEntity> teClass, String modelName) {
+    public static void registerTileEntity(Class<? extends TileEntity> teClass, String modelName) {
         proxy.registerTileEntity(teClass, modelName);
     }
 
-    public void registerTileEntity(Class<? extends TileEntity> teClass, Function<TileEntity, String> modelSelector) {
+    public static void registerTileEntity(Class<? extends TileEntity> teClass,
+        Function<TileEntity, String> modelSelector) {
         proxy.registerTileEntity(teClass, modelSelector);
     }
 
