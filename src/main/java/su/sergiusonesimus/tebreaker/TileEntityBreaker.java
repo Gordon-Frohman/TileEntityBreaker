@@ -41,6 +41,7 @@ public class TileEntityBreaker {
 
     public static boolean isBetterStorageLoaded;
     public static boolean areIronChestsLoaded;
+    public static boolean isTwilightForestLoaded;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -65,6 +66,7 @@ public class TileEntityBreaker {
         // check if various integrations are required
         isBetterStorageLoaded = Loader.isModLoaded("betterstorage");
         areIronChestsLoaded = Loader.isModLoaded("IronChest");
+        isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
     }
 
     @EventHandler

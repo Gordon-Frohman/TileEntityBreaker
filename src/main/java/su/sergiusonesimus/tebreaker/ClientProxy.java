@@ -28,6 +28,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import su.sergiusonesimus.tebreaker.BreakTextureGenerator.GeneratorData;
 import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
 import su.sergiusonesimus.tebreaker.integration.IronChestsIntegration;
+import su.sergiusonesimus.tebreaker.integration.TwilightForestIntegration;
 
 public class ClientProxy extends CommonProxy {
 
@@ -80,6 +81,12 @@ public class ClientProxy extends CommonProxy {
             e.printStackTrace();
         }
         if (TileEntityBreaker.areIronChestsLoaded) IronChestsIntegration.registerTileEntities();
+        if (TileEntityBreaker.isTwilightForestLoaded) try {
+            TwilightForestIntegration.registerTileEntities();
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
