@@ -27,6 +27,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import su.sergiusonesimus.tebreaker.BreakTextureGenerator.GeneratorData;
 import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
+import su.sergiusonesimus.tebreaker.integration.IronChestsIntegration;
 
 public class ClientProxy extends CommonProxy {
 
@@ -78,6 +79,7 @@ public class ClientProxy extends CommonProxy {
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
+        if (TileEntityBreaker.areIronChestsLoaded) IronChestsIntegration.registerTileEntities();
     }
 
     @Override

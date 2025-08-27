@@ -40,6 +40,7 @@ public class TileEntityBreaker {
     public static boolean generateTextureFiles;
 
     public static boolean isBetterStorageLoaded;
+    public static boolean areIronChestsLoaded;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -63,6 +64,7 @@ public class TileEntityBreaker {
 
         // check if various integrations are required
         isBetterStorageLoaded = Loader.isModLoaded("betterstorage");
+        areIronChestsLoaded = Loader.isModLoaded("IronChest");
     }
 
     @EventHandler
