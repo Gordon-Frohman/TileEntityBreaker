@@ -6,4 +6,6 @@ public interface IMixinTileEntitySpecialRenderer {
 
     public void setBreakTexture(ResourceLocation breakTexture);
 
+    public ResourceLocation getBreakTexture();
+
 }

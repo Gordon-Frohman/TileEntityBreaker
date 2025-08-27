@@ -18,18 +18,22 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import su.sergiusonesimus.tebreaker.BreakTextureGenerator.GeneratorData;
+import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
 
 public class ClientProxy extends CommonProxy {
 
     public static Map<String, ResourceLocation[]> destructionTextures = new HashMap<String, ResourceLocation[]>();
     public static Map<Class<? extends TileEntity>, String> texturesMap = new HashMap<Class<? extends TileEntity>, String>();
     public static Map<Class<? extends TileEntity>, Function<TileEntity, String>> selectorsMap = new HashMap<Class<? extends TileEntity>, Function<TileEntity, String>>();
+    public static Map<Class<? extends TileEntity>, ChunkCoordinates[]> offsetsMap = new HashMap<Class<? extends TileEntity>, ChunkCoordinates[]>();
     public static List<GeneratorData> generationMaterials = new ArrayList<GeneratorData>();
 
     public void preInit(FMLPreInitializationEvent event) {
@@ -68,6 +72,12 @@ public class ClientProxy extends CommonProxy {
             if (((TileEntitySkull) te).func_145904_a() == 2) return "zombie_skull";
             else return "skull";
         });
+
+        if (TileEntityBreaker.isBetterStorageLoaded) try {
+            BetterStorageIntegration.registerTileEntities();
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -97,6 +107,16 @@ public class ClientProxy extends CommonProxy {
         generationMaterials.add(new GeneratorData(modelName, textureWidth, textureHeight, models));
     }
 
+    public void registerModel(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
+        int textureHeight, WavefrontObject model) {
+        generationMaterials
+            .add(new GeneratorData(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model));
+    }
+
+    public void registerOffsets(Class<? extends TileEntity> teClass, ChunkCoordinates... offsets) {
+        offsetsMap.put(teClass, offsets);
+    }
+
     public ResourceLocation[] getTextures(TileEntity te) {
         Class<? extends TileEntity> teClass = null;
         boolean useSelector = false;
@@ -124,16 +144,31 @@ public class ClientProxy extends CommonProxy {
                     .apply(te) : texturesMap.get(teClass));
     }
 
+    public ResourceLocation[] getTextures(String texture) {
+        return destructionTextures.get(texture);
+    }
+
     @SuppressWarnings("unchecked")
     public DestroyBlockProgress getTileEntityDestroyProgress(TileEntity te) {
+        if (te == null) return null;
+        List<ChunkCoordinates> blocksToCheck = new ArrayList<ChunkCoordinates>();
+        blocksToCheck.add(new ChunkCoordinates(te.xCoord, te.yCoord, te.zCoord));
+        ChunkCoordinates[] blockOffsets = offsetsMap.get(te.getClass());
+        if (blockOffsets != null) for (ChunkCoordinates currentBlock : blockOffsets) blocksToCheck.add(
+            new ChunkCoordinates(
+                te.xCoord + currentBlock.posX,
+                te.yCoord + currentBlock.posY,
+                te.zCoord + currentBlock.posZ));
         Iterator<DestroyBlockProgress> iterator = Minecraft.getMinecraft().renderGlobal.damagedBlocks.values()
             .iterator();
 
         while (iterator.hasNext()) {
             DestroyBlockProgress destroyblockprogress = iterator.next();
-            if (destroyblockprogress.getPartialBlockX() == te.xCoord
-                && destroyblockprogress.getPartialBlockY() == te.yCoord
-                && destroyblockprogress.getPartialBlockZ() == te.zCoord) return destroyblockprogress;
+            for (ChunkCoordinates currentBlock : blocksToCheck) {
+                if (destroyblockprogress.getPartialBlockX() == currentBlock.posX
+                    && destroyblockprogress.getPartialBlockY() == currentBlock.posY
+                    && destroyblockprogress.getPartialBlockZ() == currentBlock.posZ) return destroyblockprogress;
+            }
         }
         return null;
     }

@@ -6,7 +6,9 @@ import java.util.function.Function;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.DestroyBlockProgress;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
@@ -14,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -36,9 +39,9 @@ public class TileEntityBreaker {
 
     public static boolean generateTextureFiles;
 
+    public static boolean isBetterStorageLoaded;
+
     @EventHandler
-    // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
-    // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
         // Reading config file
         Configuration config = new Configuration(
@@ -57,10 +60,12 @@ public class TileEntityBreaker {
         }
 
         proxy.preInit(event);
+
+        // check if various integrations are required
+        isBetterStorageLoaded = Loader.isModLoaded("betterstorage");
     }
 
     @EventHandler
-    // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
     public void init(FMLInitializationEvent event) {
 
         // event listeners
@@ -77,7 +82,6 @@ public class TileEntityBreaker {
     }
 
     @EventHandler
-    // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
     }
@@ -90,8 +94,17 @@ public class TileEntityBreaker {
         return proxy.getTextures(te);
     }
 
+    public static ResourceLocation[] getTextures(String texture) {
+        return proxy.getTextures(texture);
+    }
+
     public static ResourceLocation getDestructionTexture(TileEntity te, int destructionStage) {
         ResourceLocation[] stages = getTextures(te);
+        return stages == null ? null : stages[destructionStage];
+    }
+
+    public static ResourceLocation getDestructionTexture(String texture, int destructionStage) {
+        ResourceLocation[] stages = getTextures(texture);
         return stages == null ? null : stages[destructionStage];
     }
 
@@ -106,6 +119,23 @@ public class TileEntityBreaker {
 
     public static void registerModel(String modelName, int textureWidth, int textureHeight, ModelRenderer... models) {
         proxy.registerModel(modelName, textureWidth, textureHeight, models);
+    }
+
+    public static void registerModel(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
+        int textureHeight, WavefrontObject model) {
+        proxy.registerModel(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model);
+    }
+
+    public static void registerModel(String modelName, int textureWidth, int textureHeight, WavefrontObject model) {
+        registerModel(modelName, 1, 1, 1, textureWidth, textureHeight, model);
+    }
+
+    public static void registerOffsets(Class<? extends TileEntity> teClass, ChunkCoordinates... offsets) {
+        proxy.registerOffsets(teClass, offsets);
+    }
+
+    public static void registerOffset(Class<? extends TileEntity> teClass, int x, int y, int z) {
+        registerOffsets(teClass, new ChunkCoordinates(x, y, z));
     }
 
     @SuppressWarnings("unchecked")

@@ -25,6 +25,10 @@ public class MixinTileEntitySpecialRenderer implements IMixinTileEntitySpecialRe
         this.breakTexture = breakTexture;
     }
 
+    public ResourceLocation getBreakTexture() {
+        return this.breakTexture;
+    }
+
     @WrapOperation(
         method = "bindTexture",
         at = @At(

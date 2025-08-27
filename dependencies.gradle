@@ -36,4 +36,5 @@
 dependencies {
     implementation("com.github.GTNewHorizons:NotEnoughItems:2.7.49-GTNH:dev")
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:1.0.0-beta44:dev")
+    implementation(rfg.deobf(project.files("libs/better_storage_mod_1.7.10.jar")))
 }

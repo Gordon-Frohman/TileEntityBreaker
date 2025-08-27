@@ -5,7 +5,9 @@ import java.util.function.Function;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.DestroyBlockProgress;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -49,7 +51,20 @@ public class CommonProxy {
 
     }
 
+    public void registerModel(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
+        int textureHeight, WavefrontObject model) {
+
+    }
+
+    public void registerOffsets(Class<? extends TileEntity> teClass, ChunkCoordinates... offsets) {
+
+    }
+
     public ResourceLocation[] getTextures(TileEntity te) {
+        return null;
+    }
+
+    public ResourceLocation[] getTextures(String texture) {
         return null;
     }
 
