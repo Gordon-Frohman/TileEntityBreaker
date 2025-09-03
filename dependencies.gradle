@@ -37,7 +37,7 @@ dependencies {
     implementation("com.github.GTNewHorizons:NotEnoughItems:2.7.49-GTNH:dev")
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:1.0.0-beta44:dev")
     implementation(rfg.deobf(project.files("libs/better_storage_mod_1.7.10.jar")))
-    compileOnly("com.github.GTNewHorizons:ironchest:6.1.6:dev")
-    implementation("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {transitive = false}
-    implementation ("com.github.GTNewHorizons:Baubles-Expanded:2.1.9-GTNH:dev") // For Thaumcraft runtime
+    devOnlyNonPublishable("com.github.GTNewHorizons:ironchest:6.1.6:dev")
+    devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {transitive = false}
+    devOnlyNonPublishable ("com.github.GTNewHorizons:Baubles-Expanded:2.1.9-GTNH:dev") // For Thaumcraft runtime
 }
