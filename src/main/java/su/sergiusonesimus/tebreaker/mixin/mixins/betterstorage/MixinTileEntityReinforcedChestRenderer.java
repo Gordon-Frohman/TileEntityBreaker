@@ -52,11 +52,11 @@ public class MixinTileEntityReinforcedChestRenderer extends MixinTileEntitySpeci
 
                 this.bindTexture(
                     ClientProxy.destructionTextures.get(
-                        "double_chest_" + ((chest.getOrientation() == ForgeDirection.EAST
-                            && chest.getConnected() == ForgeDirection.SOUTH)
+                        (chest.getOrientation() == ForgeDirection.EAST && chest.getConnected() == ForgeDirection.SOUTH)
                             || (chest.getOrientation() == ForgeDirection.NORTH
-                                && chest.getConnected() == ForgeDirection.EAST) ? "right"
-                                    : "left"))[destroyBlockProgress.getPartialBlockDamage()]);
+                                && chest.getConnected() == ForgeDirection.EAST) ? TileEntityBreaker.DOUBLE_CHEST_RIGHT
+                                    : TileEntityBreaker.DOUBLE_CHEST_LEFT)[destroyBlockProgress
+                                        .getPartialBlockDamage()]);
 
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
 
@@ -80,11 +80,11 @@ public class MixinTileEntityReinforcedChestRenderer extends MixinTileEntitySpeci
 
                 this.bindTexture(
                     ClientProxy.destructionTextures.get(
-                        "double_chest_" + ((chest.getOrientation() == ForgeDirection.WEST
-                            && chest.getConnected() == ForgeDirection.SOUTH)
+                        (chest.getOrientation() == ForgeDirection.WEST && chest.getConnected() == ForgeDirection.SOUTH)
                             || (chest.getOrientation() == ForgeDirection.SOUTH
-                                && chest.getConnected() == ForgeDirection.EAST) ? "right"
-                                    : "left"))[destroyNeighboutBlockProgress.getPartialBlockDamage()]);
+                                && chest.getConnected() == ForgeDirection.EAST) ? TileEntityBreaker.DOUBLE_CHEST_RIGHT
+                                    : TileEntityBreaker.DOUBLE_CHEST_LEFT)[destroyNeighboutBlockProgress
+                                        .getPartialBlockDamage()]);
 
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
 

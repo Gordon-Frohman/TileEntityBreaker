@@ -19,6 +19,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import su.sergiusonesimus.tebreaker.ClientProxy;
 import su.sergiusonesimus.tebreaker.TileEntityBreaker;
+import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
 import su.sergiusonesimus.tebreaker.mixin.mixins.MixinTileEntitySpecialRenderer;
 
 @Mixin(TileEntityLockerRenderer.class)
@@ -69,7 +70,7 @@ public class MixinTileEntityLockerRenderer extends MixinTileEntitySpecialRendere
                 GL11.glPolygonOffset(-3.0F, -3.0F);
 
                 this.bindTexture(
-                    ClientProxy.destructionTextures.get("double_locker_top")[destroyBlockProgress
+                    ClientProxy.destructionTextures.get(BetterStorageIntegration.DOUBLE_LOCKER_TOP)[destroyBlockProgress
                         .getPartialBlockDamage()]);
 
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
@@ -93,8 +94,9 @@ public class MixinTileEntityLockerRenderer extends MixinTileEntitySpecialRendere
                 GL11.glPolygonOffset(-3.0F, -3.0F);
 
                 this.bindTexture(
-                    ClientProxy.destructionTextures.get("double_locker_bottom")[destroyNeighboutBlockProgress
-                        .getPartialBlockDamage()]);
+                    ClientProxy.destructionTextures
+                        .get(BetterStorageIntegration.DOUBLE_LOCKER_BOTTOM)[destroyNeighboutBlockProgress
+                            .getPartialBlockDamage()]);
 
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
 

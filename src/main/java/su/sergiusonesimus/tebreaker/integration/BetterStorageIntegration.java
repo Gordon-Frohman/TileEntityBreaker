@@ -22,12 +22,18 @@ import su.sergiusonesimus.tebreaker.TileEntityBreaker;
 
 public class BetterStorageIntegration {
 
+    public static final String LOCKER = "locker";
+    public static final String DOUBLE_LOCKER_TOP = "double_locker_top";
+    public static final String DOUBLE_LOCKER_BOTTOM = "double_locker_bottom";
+    public static final String BACKPACK = "backpack";
+    public static final String ARMOR_STAND = "armor_stand";
+
     public static void registerTileEntities()
         throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
         TileEntityBreaker.registerTileEntity(TileEntityReinforcedChest.class, (te) -> {
             TileEntityReinforcedChest teChest = (TileEntityReinforcedChest) te;
             if (!teChest.isConnected()) {
-                return "chest";
+                return TileEntityBreaker.CHEST;
             }
             return "";
         });
@@ -36,18 +42,18 @@ public class BetterStorageIntegration {
         TileEntityBreaker.registerTileEntity(TileEntityLocker.class, (te) -> {
             TileEntityLocker teLocker = (TileEntityLocker) te;
             if (!teLocker.isConnected()) {
-                return "locker";
+                return LOCKER;
             }
             return "";
         });
         Field model = locker.getClass()
             .getDeclaredField("model");
         model.setAccessible(true);
-        TileEntityBreaker.registerModel("locker", 64, 32, (WavefrontObject) model.get(locker));
+        TileEntityBreaker.registerModel(LOCKER, 64, 32, (WavefrontObject) model.get(locker));
 
         ModelBackpack backpack = new ModelBackpack(true);
         TileEntityBreaker.registerModel(
-            "backpack",
+            BACKPACK,
             32,
             32,
             backpack.main,
@@ -55,7 +61,7 @@ public class BetterStorageIntegration {
             backpack.front,
             backpack.left,
             backpack.right);
-        TileEntityBreaker.registerTileEntity(TileEntityBackpack.class, "backpack");
+        TileEntityBreaker.registerTileEntity(TileEntityBackpack.class, BACKPACK);
 
         ModelArmorStand armorStand = new ModelArmorStand();
         Field bottom = armorStand.getClass()
@@ -74,7 +80,7 @@ public class BetterStorageIntegration {
             .getDeclaredField("legs");
         legs.setAccessible(true);
         TileEntityBreaker.registerModel(
-            "armor_stand",
+            ARMOR_STAND,
             64,
             32,
             (ModelRenderer) bottom.get(armorStand),
@@ -82,7 +88,7 @@ public class BetterStorageIntegration {
             (ModelRenderer) head.get(armorStand),
             (ModelRenderer) shoulder.get(armorStand),
             (ModelRenderer) legs.get(armorStand));
-        TileEntityBreaker.registerTileEntity(TileEntityArmorStand.class, "armor_stand");
+        TileEntityBreaker.registerTileEntity(TileEntityArmorStand.class, ARMOR_STAND);
         TileEntityBreaker.registerOffset(TileEntityArmorStand.class, 0, 1, 0);
     }
 
@@ -202,7 +208,7 @@ public class BetterStorageIntegration {
         }
 
         for (int i = 0; i < generatedImages.length; i++) {
-            String name = "double_locker_" + (topPart ? "top" : "bottom") + "_destruction_" + i;
+            String name = (topPart ? DOUBLE_LOCKER_TOP : DOUBLE_LOCKER_BOTTOM) + "_destruction_" + i;
             result[i] = BreakTextureGenerator.registerDynamicTexture(name, generatedImages[i]);
             BreakTextureGenerator.saveTextureToFile(generatedImages[i], name);
         }

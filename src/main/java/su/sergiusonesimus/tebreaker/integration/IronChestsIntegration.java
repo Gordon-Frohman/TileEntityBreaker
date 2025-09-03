@@ -6,7 +6,7 @@ import su.sergiusonesimus.tebreaker.TileEntityBreaker;
 public class IronChestsIntegration {
 
     public static void registerTileEntities() {
-        TileEntityBreaker.registerTileEntity(TileEntityIronChest.class, "chest");
+        TileEntityBreaker.registerTileEntity(TileEntityIronChest.class, TileEntityBreaker.CHEST);
     }
 
 }

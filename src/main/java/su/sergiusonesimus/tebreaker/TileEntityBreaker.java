@@ -43,6 +43,13 @@ public class TileEntityBreaker {
     public static boolean areIronChestsLoaded;
     public static boolean isThaumcraftLoaded;
 
+    public static final String CHEST = "chest";
+    public static final String DOUBLE_CHEST_LEFT = "double_chest_left";
+    public static final String DOUBLE_CHEST_RIGHT = "double_chest_right";
+    public static final String SIGN = "sign";
+    public static final String SKULL = "skull";
+    public static final String ZOMBIE_SKULL = "zombie_skull";
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         // Reading config file
