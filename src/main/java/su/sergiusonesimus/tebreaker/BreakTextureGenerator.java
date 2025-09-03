@@ -46,9 +46,23 @@ public class BreakTextureGenerator {
                 data.scaleZ,
                 data.textureWidth,
                 data.textureHeight,
-                data.model);
+                data.model,
+                data.useTextureOffset);
         }
-        return generateBreakTextures(data.modelName, data.textureWidth, data.textureHeight, data.models);
+        if (data.models != null) {
+            return generateBreakTextures(data.modelName, data.textureWidth, data.textureHeight, data.models);
+        }
+        return readTexturesFromAssets(data.modelName, data.textureGroup);
+    }
+
+    private static ResourceLocation[] readTexturesFromAssets(String modelName, String textureGroup) {
+        ResourceLocation[] result = new ResourceLocation[destroyBlockIcons.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new ResourceLocation(
+                textureGroup,
+                "textures/models/" + modelName + "_destruction_" + i + ".png");
+        }
+        return result;
     }
 
     public static ResourceLocation[] generateBreakTextures(String modelName, int textureWidth, int textureHeight,
@@ -65,12 +79,12 @@ public class BreakTextureGenerator {
             for (Object modelObject : model.cubeList) {
                 ModelBox modelBox = (ModelBox) modelObject;
                 // Getting bounds of the box in space of one block (in pixels)
-                int minX = (int) (model.rotationPointX + modelBox.posX1);
-                int minY = (int) (model.rotationPointY + modelBox.posY1);
-                int minZ = (int) (model.rotationPointZ + modelBox.posZ1);
-                int maxX = (int) (model.rotationPointX + modelBox.posX2);
-                int maxY = (int) (model.rotationPointY + modelBox.posY2);
-                int maxZ = (int) (model.rotationPointZ + modelBox.posZ2);
+                int minX = Math.round(model.rotationPointX + modelBox.posX1);
+                int minY = Math.round(model.rotationPointY + modelBox.posY1);
+                int minZ = Math.round(model.rotationPointZ + modelBox.posZ1);
+                int maxX = Math.round(model.rotationPointX + modelBox.posX2);
+                int maxY = Math.round(model.rotationPointY + modelBox.posY2);
+                int maxZ = Math.round(model.rotationPointZ + modelBox.posZ2);
                 int sizeX = maxX - minX;
                 int sizeY = maxY - minY;
                 int sizeZ = maxZ - minZ;
@@ -81,8 +95,8 @@ public class BreakTextureGenerator {
                     minX += 16;
                     maxX += 16;
                 }
-                if (sizeX % 16 != 0) {
-                    if (sizeX > 16) stretchX = sizeX - 16;
+                if (sizeX > 16 && sizeX < 32) stretchX = sizeX - 16;
+                if (sizeX % 2 == 0) {
                     if (minX * maxX < 0 && Math.abs(minX) == Math.abs(maxX)) {
                         minX += 8 + stretchX / 2;
                         maxX += 8 + stretchX / 2;
@@ -91,18 +105,18 @@ public class BreakTextureGenerator {
                         minX -= 8 + stretchX / 2;
                         maxX -= 8 + stretchX / 2;
                     }
-                    if (sizeX < 16 && (minX + 16) % 16 > (maxX + 16) % 16) {
-                        int dX = maxX % 16;
-                        minX -= dX;
-                        maxX -= dX;
-                    }
+                }
+                if (sizeX < 16 && (minX + 16) % 16 > (maxX + 16) % 16) {
+                    int dX = maxX % 16;
+                    minX -= dX;
+                    maxX -= dX;
                 }
                 while (minY < 0 && maxY <= 0) {
                     minY += 16;
                     maxY += 16;
                 }
-                if (sizeY % 16 != 0) {
-                    if (sizeY > 16) stretchY = sizeY - 16;
+                if (sizeY > 16 && sizeY < 32) stretchY = sizeY - 16;
+                if (sizeY % 2 == 0) {
                     if (minY * maxY < 0 && Math.abs(minY) == Math.abs(maxY)) {
                         minY += 8 + stretchY / 2;
                         maxY += 8 + stretchY / 2;
@@ -111,18 +125,18 @@ public class BreakTextureGenerator {
                         minY -= 8 + stretchY / 2;
                         maxY -= 8 + stretchY / 2;
                     }
-                    if (sizeY < 16 && (minY + 16) % 16 > (maxY + 16) % 16) {
-                        int dY = maxY % 16;
-                        minY -= dY;
-                        maxY -= dY;
-                    }
+                }
+                if (sizeY < 16 && (minY + 16) % 16 > (maxY + 16) % 16) {
+                    int dY = maxY % 16;
+                    minY -= dY;
+                    maxY -= dY;
                 }
                 while (minZ < 0 && maxZ <= 0) {
                     minZ += 16;
                     maxZ += 16;
                 }
-                if (sizeZ % 16 != 0) {
-                    if (sizeZ > 16) stretchZ = sizeZ - 16;
+                if (sizeZ > 16 && sizeZ < 32) stretchZ = sizeZ - 16;
+                if (sizeZ % 2 == 0) {
                     if (minZ * maxZ < 0 && Math.abs(minZ) == Math.abs(maxZ)) {
                         minZ += 8 + stretchZ / 2;
                         maxZ += 8 + stretchZ / 2;
@@ -131,11 +145,11 @@ public class BreakTextureGenerator {
                         minZ -= 8 + stretchZ / 2;
                         maxZ -= 8 + stretchZ / 2;
                     }
-                    if (sizeZ < 16 && (minZ + 16) % 16 > (maxZ + 16) % 16) {
-                        int dZ = maxZ % 16;
-                        minZ -= dZ;
-                        maxZ -= dZ;
-                    }
+                }
+                if (sizeZ < 16 && (minZ + 16) % 16 > (maxZ + 16) % 16) {
+                    int dZ = maxZ % 16;
+                    minZ -= dZ;
+                    maxZ -= dZ;
                 }
                 for (int i = 0; i < generatedImages.length; i++) {
                     // Y+ face
@@ -224,7 +238,7 @@ public class BreakTextureGenerator {
     }
 
     public static ResourceLocation[] generateDoubleChestBreakTextures(boolean rightHalf) {
-        String modelName = "double_chest_" + (rightHalf ? "right" : "left");
+        String modelName = rightHalf ? TileEntityBreaker.DOUBLE_CHEST_RIGHT : TileEntityBreaker.DOUBLE_CHEST_LEFT;
         int textureWidth = 128;
         int textureHeight = 64;
         ModelLargeChest doubleChest = new ModelLargeChest();
@@ -366,11 +380,21 @@ public class BreakTextureGenerator {
 
     public static ResourceLocation[] generateBreakTextures(String modelName, int textureWidth, int textureHeight,
         WavefrontObject model) {
-        return generateBreakTextures(modelName, 1, 1, 1, textureWidth, textureHeight, model);
+        return generateBreakTextures(modelName, 1, 1, 1, textureWidth, textureHeight, model, false);
+    }
+
+    public static ResourceLocation[] generateBreakTextures(String modelName, int textureWidth, int textureHeight,
+        WavefrontObject model, boolean useTextureOffset) {
+        return generateBreakTextures(modelName, 1, 1, 1, textureWidth, textureHeight, model, useTextureOffset);
     }
 
     public static ResourceLocation[] generateBreakTextures(String modelName, float scaleX, float scaleY, float scaleZ,
         int textureWidth, int textureHeight, WavefrontObject model) {
+        return generateBreakTextures(modelName, 1, 1, 1, textureWidth, textureHeight, model, false);
+    }
+
+    public static ResourceLocation[] generateBreakTextures(String modelName, float scaleX, float scaleY, float scaleZ,
+        int textureWidth, int textureHeight, WavefrontObject model, boolean useTextureOffset) {
         ResourceLocation[] result = new ResourceLocation[destroyBlockIcons.length];
         BufferedImage[] generatedImages = new BufferedImage[destroyBlockIcons.length];
         for (int i = 0; i < result.length; i++) {
@@ -388,10 +412,6 @@ public class BreakTextureGenerator {
         for (Entry<Float[][], Float[][]> face : textureMap.entrySet()) {
             Float[][] textureCoords = face.getKey();
             int length = textureCoords.length - 1;
-            // int offsetX = Math.round(textureCoords[length][0]);
-            // int offsetY = Math.round(textureCoords[length][1]);
-            int offsetX = 0;
-            int offsetY = 0;
             Integer minX = null;
             Integer minY = null;
             Integer maxX = null;
@@ -404,6 +424,8 @@ public class BreakTextureGenerator {
             }
             int sizeX = maxX - minX;
             int sizeY = maxY - minY;
+            int offsetX = useTextureOffset ? (16 - sizeX - Math.round(textureCoords[length][0])) / 2 : 0;
+            int offsetY = useTextureOffset ? (16 - sizeY - Math.round(textureCoords[length][1])) / 2 : 0;
             int stretchX = 0;
             int stretchY = 0;
             int imageMinX = minX;
@@ -501,18 +523,20 @@ public class BreakTextureGenerator {
                     // Last variable should contain texture offset relative to block center
                     Float[][] textureCoords = new Float[length + 1][];
                     Float[][] worldCoords = new Float[length][];
-                    float centerU = 0, centerV = 0;
+                    Float minU = null, minV = null, maxU = null, maxV = null;
 
                     for (int i = 0; i < length; i++) {
                         Vertex vertex = face.vertices[i];
                         TextureCoordinate textureCoordinate = face.textureCoordinates[i];
 
-                        centerU += textureCoordinate.u;
-                        centerV += textureCoordinate.v;
-
                         float texU = textureCoordinate.u * textureWidth;
                         float texV = textureCoordinate.v * textureHeight;
                         textureCoords[i] = new Float[] { texU, texV };
+
+                        if (minU == null || texU < minU) minU = texU;
+                        if (minV == null || texV < minV) minV = texV;
+                        if (maxU == null || texU > maxU) maxU = texU;
+                        if (maxV == null || texV > maxV) maxV = texV;
 
                         float worldX = 16.0f * ((vertex.x - minX) / (maxX - minX)) * scaleX;
                         float worldY = 16.0f * ((vertex.y - minY) / (maxY - minY)) * scaleY;
@@ -521,10 +545,8 @@ public class BreakTextureGenerator {
                     }
 
                     TextureCoordinate projectedCenter = projectPointToFaceTextureCoord(centerX, centerY, centerZ, face);
-                    centerU /= length;
-                    centerV /= length;
-                    textureCoords[length] = new Float[] { (projectedCenter.u - centerU) * textureWidth,
-                        (projectedCenter.v - centerV) * textureHeight };
+                    textureCoords[length] = new Float[] { projectedCenter.u * textureWidth - (minU + maxU) / 2,
+                        projectedCenter.v * textureWidth - (minV + maxV) / 2 };
 
                     textureWorldMap.put(textureCoords, worldCoords);
                 }
@@ -595,7 +617,7 @@ public class BreakTextureGenerator {
         return new TextureCoordinate(uCoord, vCoord);
     }
 
-    private static BufferedImage copyIconToImage(int iconID, int iconMinX, int iconMinY, int iconMaxX, int iconMaxY,
+    public static BufferedImage copyIconToImage(int iconID, int iconMinX, int iconMinY, int iconMaxX, int iconMaxY,
         BufferedImage image, int imageMinX, int imageMinY) {
         return copyIconToImage(iconID, iconMinX, iconMinY, iconMaxX, iconMaxY, image, imageMinX, imageMinY, 0, 0);
     }
@@ -726,6 +748,8 @@ public class BreakTextureGenerator {
         private float scaleZ;
         private ModelRenderer[] models;
         private WavefrontObject model;
+        private boolean useTextureOffset = false;
+        private String textureGroup = "tebreaker";
 
         public GeneratorData(String modelName, int textureWidth, int textureHeight, ModelRenderer[] models) {
             this.modelName = modelName;
@@ -736,6 +760,11 @@ public class BreakTextureGenerator {
 
         public GeneratorData(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
             int textureHeight, WavefrontObject model) {
+            this(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model, false);
+        }
+
+        public GeneratorData(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
+            int textureHeight, WavefrontObject model, boolean useTextureOffset) {
             this.modelName = modelName;
             this.textureWidth = textureWidth;
             this.textureHeight = textureHeight;
@@ -743,6 +772,12 @@ public class BreakTextureGenerator {
             this.scaleY = scaleY;
             this.scaleZ = scaleZ;
             this.model = model;
+            this.useTextureOffset = useTextureOffset;
+        }
+
+        public GeneratorData(String modelName, String textureGroup) {
+            this.modelName = modelName;
+            this.textureGroup = textureGroup;
         }
     }
 

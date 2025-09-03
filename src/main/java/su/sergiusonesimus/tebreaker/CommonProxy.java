@@ -52,7 +52,11 @@ public class CommonProxy {
     }
 
     public void registerModel(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
-        int textureHeight, WavefrontObject model) {
+        int textureHeight, WavefrontObject model, boolean useTextureOffset) {
+
+    }
+
+    public void registerModel(String modelName, String textureGroup) {
 
     }
 
@@ -69,6 +73,10 @@ public class CommonProxy {
     }
 
     public DestroyBlockProgress getTileEntityDestroyProgress(TileEntity te) {
+        return null;
+    }
+
+    public DestroyBlockProgress getBlockDestroyProgress(int x, int y, int z) {
         return null;
     }
 

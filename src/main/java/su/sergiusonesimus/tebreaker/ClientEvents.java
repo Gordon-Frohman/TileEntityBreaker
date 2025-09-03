@@ -5,6 +5,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import su.sergiusonesimus.tebreaker.BreakTextureGenerator.GeneratorData;
 import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
+import su.sergiusonesimus.tebreaker.integration.ThaumcraftIntegration;
 
 public class ClientEvents {
 
@@ -17,15 +18,26 @@ public class ClientEvents {
         ClientProxy.generationMaterials.clear();
 
         ClientProxy.destructionTextures
-            .put("double_chest_left", BreakTextureGenerator.generateDoubleChestBreakTextures(false));
+            .put(TileEntityBreaker.DOUBLE_CHEST_LEFT, BreakTextureGenerator.generateDoubleChestBreakTextures(false));
         ClientProxy.destructionTextures
-            .put("double_chest_right", BreakTextureGenerator.generateDoubleChestBreakTextures(true));
+            .put(TileEntityBreaker.DOUBLE_CHEST_RIGHT, BreakTextureGenerator.generateDoubleChestBreakTextures(true));
 
         if (TileEntityBreaker.isBetterStorageLoaded) {
-            ClientProxy.destructionTextures
-                .put("double_locker_bottom", BetterStorageIntegration.generateDoubleLockerBreakTextures(false));
-            ClientProxy.destructionTextures
-                .put("double_locker_top", BetterStorageIntegration.generateDoubleLockerBreakTextures(true));
+            ClientProxy.destructionTextures.put(
+                BetterStorageIntegration.DOUBLE_LOCKER_BOTTOM,
+                BetterStorageIntegration.generateDoubleLockerBreakTextures(false));
+            ClientProxy.destructionTextures.put(
+                BetterStorageIntegration.DOUBLE_LOCKER_TOP,
+                BetterStorageIntegration.generateDoubleLockerBreakTextures(true));
+        }
+
+        if (TileEntityBreaker.isThaumcraftLoaded) {
+            ClientProxy.destructionTextures.put(
+                ThaumcraftIntegration.RESEARCH_TABLE_LEFT,
+                ThaumcraftIntegration.generateResearchTableBreakTextures(false));
+            ClientProxy.destructionTextures.put(
+                ThaumcraftIntegration.RESEARCH_TABLE_RIGHT,
+                ThaumcraftIntegration.generateResearchTableBreakTextures(true));
         }
     }
 }

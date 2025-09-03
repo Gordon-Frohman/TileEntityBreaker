@@ -2,6 +2,7 @@ package su.sergiusonesimus.tebreaker.mixin.mixins;
 
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +20,8 @@ public class MixinTileEntitySpecialRenderer implements IMixinTileEntitySpecialRe
     @Shadow(remap = true)
     protected void bindTexture(ResourceLocation p_147499_1_) {}
 
-    private ResourceLocation breakTexture = null;
+    protected ResourceLocation breakTexture = null;
+    protected TileEntity storedTileEntity = null;
 
     public void setBreakTexture(ResourceLocation breakTexture) {
         this.breakTexture = breakTexture;

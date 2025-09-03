@@ -28,6 +28,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import su.sergiusonesimus.tebreaker.BreakTextureGenerator.GeneratorData;
 import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
 import su.sergiusonesimus.tebreaker.integration.IronChestsIntegration;
+import su.sergiusonesimus.tebreaker.integration.ThaumcraftIntegration;
 
 public class ClientProxy extends CommonProxy {
 
@@ -47,31 +48,31 @@ public class ClientProxy extends CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event) {
         ModelChest chest = new ModelChest();
-        registerModel("chest", 64, 64, chest.chestBelow, chest.chestKnob, chest.chestLid);
-        registerTileEntity(TileEntityEnderChest.class, "chest");
+        registerModel(TileEntityBreaker.CHEST, 64, 64, chest.chestBelow, chest.chestKnob, chest.chestLid);
+        registerTileEntity(TileEntityEnderChest.class, TileEntityBreaker.CHEST);
         registerTileEntity(TileEntityChest.class, (te) -> {
             TileEntityChest teChest = (TileEntityChest) te;
             if (teChest.adjacentChestZNeg == null && teChest.adjacentChestXNeg == null
                 && teChest.adjacentChestXPos == null
                 && teChest.adjacentChestZPos == null) {
-                return "chest";
+                return TileEntityBreaker.CHEST;
             }
             return "";
         });
 
         ModelSign sign = new ModelSign();
-        registerModel("sign", 64, 32, sign.signBoard, sign.signStick);
-        registerTileEntity(TileEntitySign.class, "sign");
+        registerModel(TileEntityBreaker.SIGN, 64, 32, sign.signBoard, sign.signStick);
+        registerTileEntity(TileEntitySign.class, TileEntityBreaker.SIGN);
 
         ModelSkeletonHead skull = new ModelSkeletonHead(0, 0, 64, 32);
         skull.skeletonHead.rotationPointY -= 4;
         ModelSkeletonHead zombieSkull = new ModelSkeletonHead(0, 0, 64, 64);
         zombieSkull.skeletonHead.rotationPointY -= 4;
-        registerModel("skull", 64, 32, skull.skeletonHead);
-        registerModel("zombie_skull", 64, 64, zombieSkull.skeletonHead);
+        registerModel(TileEntityBreaker.SKULL, 64, 32, skull.skeletonHead);
+        registerModel(TileEntityBreaker.ZOMBIE_SKULL, 64, 64, zombieSkull.skeletonHead);
         registerTileEntity(TileEntitySkull.class, (te) -> {
-            if (((TileEntitySkull) te).func_145904_a() == 2) return "zombie_skull";
-            else return "skull";
+            if (((TileEntitySkull) te).func_145904_a() == 2) return TileEntityBreaker.ZOMBIE_SKULL;
+            else return TileEntityBreaker.SKULL;
         });
 
         if (TileEntityBreaker.isBetterStorageLoaded) try {
@@ -80,6 +81,11 @@ public class ClientProxy extends CommonProxy {
             e.printStackTrace();
         }
         if (TileEntityBreaker.areIronChestsLoaded) IronChestsIntegration.registerTileEntities();
+        if (TileEntityBreaker.isThaumcraftLoaded) try {
+            ThaumcraftIntegration.registerTileEntities();
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -110,9 +116,13 @@ public class ClientProxy extends CommonProxy {
     }
 
     public void registerModel(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
-        int textureHeight, WavefrontObject model) {
-        generationMaterials
-            .add(new GeneratorData(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model));
+        int textureHeight, WavefrontObject model, boolean useTextureOffset) {
+        generationMaterials.add(
+            new GeneratorData(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model, useTextureOffset));
+    }
+
+    public void registerModel(String modelName, String textureGroup) {
+        generationMaterials.add(new GeneratorData(modelName, textureGroup));
     }
 
     public void registerOffsets(Class<? extends TileEntity> teClass, ChunkCoordinates... offsets) {
@@ -171,6 +181,19 @@ public class ClientProxy extends CommonProxy {
                     && destroyblockprogress.getPartialBlockY() == currentBlock.posY
                     && destroyblockprogress.getPartialBlockZ() == currentBlock.posZ) return destroyblockprogress;
             }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public DestroyBlockProgress getBlockDestroyProgress(int x, int y, int z) {
+        Iterator<DestroyBlockProgress> iterator = Minecraft.getMinecraft().renderGlobal.damagedBlocks.values()
+            .iterator();
+
+        while (iterator.hasNext()) {
+            DestroyBlockProgress destroyblockprogress = iterator.next();
+            if (destroyblockprogress.getPartialBlockX() == x && destroyblockprogress.getPartialBlockY() == y
+                && destroyblockprogress.getPartialBlockZ() == z) return destroyblockprogress;
         }
         return null;
     }

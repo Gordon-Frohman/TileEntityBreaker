@@ -41,6 +41,7 @@ public class TileEntityBreaker {
 
     public static boolean isBetterStorageLoaded;
     public static boolean areIronChestsLoaded;
+    public static boolean isThaumcraftLoaded;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -65,6 +66,7 @@ public class TileEntityBreaker {
         // check if various integrations are required
         isBetterStorageLoaded = Loader.isModLoaded("betterstorage");
         areIronChestsLoaded = Loader.isModLoaded("IronChest");
+        isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
     }
 
     @EventHandler
@@ -124,12 +126,34 @@ public class TileEntityBreaker {
     }
 
     public static void registerModel(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
+        int textureHeight, WavefrontObject model, boolean useTextureOffset) {
+        proxy.registerModel(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model, useTextureOffset);
+    }
+
+    public static void registerModel(String modelName, float scaleX, float scaleY, float scaleZ, int textureWidth,
         int textureHeight, WavefrontObject model) {
-        proxy.registerModel(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model);
+        registerModel(modelName, scaleX, scaleY, scaleZ, textureWidth, textureHeight, model, false);
+    }
+
+    public static void registerModel(String modelName, int textureWidth, int textureHeight, WavefrontObject model,
+        boolean useTextureOffset) {
+        registerModel(modelName, 1, 1, 1, textureWidth, textureHeight, model, useTextureOffset);
     }
 
     public static void registerModel(String modelName, int textureWidth, int textureHeight, WavefrontObject model) {
-        registerModel(modelName, 1, 1, 1, textureWidth, textureHeight, model);
+        registerModel(modelName, 1, 1, 1, textureWidth, textureHeight, model, false);
+    }
+
+    /**
+     * Register model textures to be read from file.
+     * Requires 10 corresponding textures in 'assets' folder.
+     * Use only if the generator is unable to produce required textures because of problem with model!
+     * 
+     * @param modelName    - Name of the model to be read from 'assets' folder
+     * @param textureGroup - Group of the model. Most likely - id of the mod this model is related to.
+     */
+    public static void registerModel(String modelName, String textureGroup) {
+        proxy.registerModel(modelName, textureGroup);
     }
 
     public static void registerOffsets(Class<? extends TileEntity> teClass, ChunkCoordinates... offsets) {
@@ -140,9 +164,16 @@ public class TileEntityBreaker {
         registerOffsets(teClass, new ChunkCoordinates(x, y, z));
     }
 
-    @SuppressWarnings("unchecked")
     public static DestroyBlockProgress getTileEntityDestroyProgress(TileEntity te) {
         return proxy.getTileEntityDestroyProgress(te);
+    }
+
+    public static DestroyBlockProgress getBlockDestroyProgress(int x, int y, int z) {
+        return proxy.getBlockDestroyProgress(x, y, z);
+    }
+
+    public static void breakpoint() {
+        int x = 0;
     }
 
 }
