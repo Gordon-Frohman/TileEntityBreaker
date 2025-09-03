@@ -35,6 +35,7 @@ public class Mixins implements IMixinConfigPlugin {
         List<String> mixins = new ArrayList<String>();
         try {
             if (Class.forName("net.mcft.copy.betterstorage.BetterStorage") != null) {
+                mixins.add("betterstorage.MixinTileEntityBackpackRenderer");
                 mixins.add("betterstorage.MixinTileEntityReinforcedChestRenderer");
                 mixins.add("betterstorage.MixinTileEntityLockerRenderer");
             }
