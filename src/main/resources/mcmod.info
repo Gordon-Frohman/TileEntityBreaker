@@ -5,6 +5,7 @@
 		"name": "${modName}",
 		"description": "",
 		"version": "1.1.0",
+		"clientSideOnly": true,
 		"mcversion": "${minecraftVersion}",
 		"url": "",
 		"updateUrl": "",
