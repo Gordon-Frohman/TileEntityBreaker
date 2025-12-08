@@ -13,6 +13,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CommonProxy {
 
@@ -72,10 +74,12 @@ public class CommonProxy {
         return null;
     }
 
+    @SideOnly(Side.CLIENT)
     public DestroyBlockProgress getTileEntityDestroyProgress(TileEntity te) {
         return null;
     }
 
+    @SideOnly(Side.CLIENT)
     public DestroyBlockProgress getBlockDestroyProgress(int x, int y, int z) {
         return null;
     }

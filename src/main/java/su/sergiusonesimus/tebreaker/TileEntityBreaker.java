@@ -9,13 +9,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.WavefrontObject;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -23,6 +21,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = Tags.MODID, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
 public class TileEntityBreaker {
@@ -78,13 +78,6 @@ public class TileEntityBreaker {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-
-        // event listeners
-        final ClientEvents clientEvents = new ClientEvents();
-        MinecraftForge.EVENT_BUS.register(clientEvents);
-        FMLCommonHandler.instance()
-            .bus()
-            .register(clientEvents);
 
         proxy.init(event);
 
@@ -171,10 +164,12 @@ public class TileEntityBreaker {
         registerOffsets(teClass, new ChunkCoordinates(x, y, z));
     }
 
+    @SideOnly(Side.CLIENT)
     public static DestroyBlockProgress getTileEntityDestroyProgress(TileEntity te) {
         return proxy.getTileEntityDestroyProgress(te);
     }
 
+    @SideOnly(Side.CLIENT)
     public static DestroyBlockProgress getBlockDestroyProgress(int x, int y, int z) {
         return proxy.getBlockDestroyProgress(x, y, z);
     }

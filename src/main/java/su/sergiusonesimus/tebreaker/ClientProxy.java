@@ -27,11 +27,14 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import su.sergiusonesimus.tebreaker.BreakTextureGenerator.GeneratorData;
 import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
 import su.sergiusonesimus.tebreaker.integration.IronChestsIntegration;
 import su.sergiusonesimus.tebreaker.integration.ThaumcraftIntegration;
 
+@SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     public static Map<String, ResourceLocation[]> destructionTextures = new HashMap<String, ResourceLocation[]>();

@@ -717,7 +717,6 @@ public class BreakTextureGenerator {
         DynamicTexture dynamicTexture = new DynamicTexture(image);
 
         ResourceLocation resource = new ResourceLocation("dynamictextures:" + name);
-        // Minecraft.getMinecraft().renderEngine.loadTexture(resource, dynamicTexture);
         ((IMixinMinecraft) Minecraft.getMinecraft()).registerTextureToLoad(resource, dynamicTexture);
 
         return resource;
