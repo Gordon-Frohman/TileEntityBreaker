@@ -7,7 +7,7 @@
 		"version": "1.1.0",
 		"clientSideOnly": true,
 		"mcversion": "${minecraftVersion}",
-		"url": "",
+		"url": "https://github.com/Gordon-Frohman/TileEntityBreaker",
 		"updateUrl": "",
 		"authorList": ["Sergius Onesimus"],
 		"credits": "",
@@ -15,7 +15,7 @@
 		"screenshots": [],
 		"parent": "",
 		"requiredMods": [],
-		"dependencies": [],
+		"dependencies": [ "required-before:unimixins" ],
 		"dependants": [],
 		"useDependencyInformation": true
 	}]

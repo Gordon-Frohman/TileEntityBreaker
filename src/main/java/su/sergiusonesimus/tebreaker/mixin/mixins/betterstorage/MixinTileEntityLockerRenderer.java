@@ -1,8 +1,8 @@
 package su.sergiusonesimus.tebreaker.mixin.mixins.betterstorage;
 
-import net.mcft.copy.betterstorage.client.model.ModelLocker;
-import net.mcft.copy.betterstorage.client.renderer.TileEntityLockerRenderer;
-import net.mcft.copy.betterstorage.tile.entity.TileEntityLocker;
+import net.mcft.betterstorage.client.model.ModelLocker;
+import net.mcft.betterstorage.client.renderer.TileEntityLockerRenderer;
+import net.mcft.betterstorage.tile.entity.TileEntityLocker;
 import net.minecraft.client.renderer.DestroyBlockProgress;
 import net.minecraft.client.renderer.OpenGlHelper;
 
@@ -33,7 +33,7 @@ public class MixinTileEntityLockerRenderer extends MixinTileEntitySpecialRendere
         remap = false,
         at = @At(
             value = "INVOKE",
-            target = "Lnet/mcft/copy/betterstorage/client/model/ModelLocker;renderAll(ZF)V",
+            target = "Lnet/mcft/betterstorage/client/model/ModelLocker;renderAll(ZF)V",
             remap = false,
             shift = Shift.BEFORE),
         locals = LocalCapture.CAPTURE_FAILHARD)
@@ -47,7 +47,7 @@ public class MixinTileEntityLockerRenderer extends MixinTileEntitySpecialRendere
         remap = false,
         at = @At(
             value = "INVOKE",
-            target = "Lnet/mcft/copy/betterstorage/client/model/ModelLocker;renderAll(ZF)V",
+            target = "Lnet/mcft/betterstorage/client/model/ModelLocker;renderAll(ZF)V",
             remap = false,
             shift = Shift.AFTER),
         locals = LocalCapture.CAPTURE_FAILHARD)

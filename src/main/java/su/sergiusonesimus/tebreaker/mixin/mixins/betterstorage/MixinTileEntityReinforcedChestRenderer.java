@@ -1,7 +1,7 @@
 package su.sergiusonesimus.tebreaker.mixin.mixins.betterstorage;
 
-import net.mcft.copy.betterstorage.client.renderer.TileEntityReinforcedChestRenderer;
-import net.mcft.copy.betterstorage.tile.entity.TileEntityReinforcedChest;
+import net.mcft.betterstorage.client.renderer.TileEntityReinforcedChestRenderer;
+import net.mcft.betterstorage.tile.entity.TileEntityReinforcedChest;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.DestroyBlockProgress;
 import net.minecraft.client.renderer.OpenGlHelper;

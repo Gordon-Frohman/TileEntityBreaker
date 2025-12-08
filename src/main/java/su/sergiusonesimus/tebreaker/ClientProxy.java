@@ -21,7 +21,9 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.WavefrontObject;
+import net.minecraftforge.common.MinecraftForge;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -43,7 +45,11 @@ public class ClientProxy extends CommonProxy {
     }
 
     public void init(FMLInitializationEvent event) {
-
+        final ClientEvents clientEvents = new ClientEvents();
+        MinecraftForge.EVENT_BUS.register(clientEvents);
+        FMLCommonHandler.instance()
+            .bus()
+            .register(clientEvents);
     }
 
     public void postInit(FMLPostInitializationEvent event) {

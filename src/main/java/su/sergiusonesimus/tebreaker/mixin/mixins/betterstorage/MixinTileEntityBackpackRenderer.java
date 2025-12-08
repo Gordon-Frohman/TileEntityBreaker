@@ -1,7 +1,7 @@
 package su.sergiusonesimus.tebreaker.mixin.mixins.betterstorage;
 
-import net.mcft.copy.betterstorage.client.renderer.TileEntityBackpackRenderer;
-import net.mcft.copy.betterstorage.tile.entity.TileEntityBackpack;
+import net.mcft.betterstorage.client.renderer.TileEntityBackpackRenderer;
+import net.mcft.betterstorage.tile.entity.TileEntityBackpack;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +19,7 @@ public class MixinTileEntityBackpackRenderer extends MixinTileEntitySpecialRende
     private boolean shouldApplyColor = true;
 
     @Inject(
-        method = "renderTileEntityAt(Lnet/mcft/copy/betterstorage/tile/entity/TileEntityBackpack;DDDF)V",
+        method = "renderTileEntityAt(Lnet/mcft/betterstorage/tile/entity/TileEntityBackpack;DDDF)V",
         remap = false,
         at = @At(value = "HEAD"))
     public void checkForBreaking(TileEntityBackpack backpack, double x, double y, double z, float partialTicks,
@@ -28,11 +28,11 @@ public class MixinTileEntityBackpackRenderer extends MixinTileEntitySpecialRende
     }
 
     @WrapOperation(
-        method = "renderTileEntityAt(Lnet/mcft/copy/betterstorage/tile/entity/TileEntityBackpack;DDDF)V",
+        method = "renderTileEntityAt(Lnet/mcft/betterstorage/tile/entity/TileEntityBackpack;DDDF)V",
         remap = false,
         at = @At(
             value = "INVOKE",
-            target = "Lnet/mcft/copy/betterstorage/utils/RenderUtils;setColorFromInt(I)V",
+            target = "Lnet/mcft/betterstorage/utils/RenderUtils;setColorFromInt(I)V",
             remap = false))
     public void setColorFromInt(int color, Operation<Void> original) {
         if (shouldApplyColor) original.call(color);
