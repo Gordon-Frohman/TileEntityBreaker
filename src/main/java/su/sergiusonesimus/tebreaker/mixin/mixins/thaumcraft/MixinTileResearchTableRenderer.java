@@ -38,6 +38,7 @@ public class MixinTileResearchTableRenderer extends MixinTileEntitySpecialRender
             shift = Shift.AFTER))
     public void renderTileEntityAt(TileResearchTable te, double dX, double dY, double dZ, float partialTicks,
         CallbackInfo ci) {
+        if (dX == 0 && dY == 0 && dZ == 0 && partialTicks == 0) return;
         DestroyBlockProgress destroyBlockProgress = TileEntityBreaker.getTileEntityDestroyProgress(te);
         int neighbourX = te.xCoord;
         int neighbourY = te.yCoord;
