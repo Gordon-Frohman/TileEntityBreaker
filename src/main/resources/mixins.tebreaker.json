@@ -6,12 +6,13 @@
   "refmap": "mixins.tebreaker.refmap.json",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
+  "mixins": [],
+  "client": [
+	"MixinMinecraft",
 	"MixinTextureMap",
 	"MixinTileEntityChestRenderer",
 	"MixinTileEntityRendererDispatcher",
 	"MixinTileEntitySpecialRenderer"
   ],
-  "client": [],
   "server": []
 }

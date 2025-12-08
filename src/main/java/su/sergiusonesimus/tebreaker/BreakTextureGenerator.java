@@ -26,8 +26,11 @@ import net.minecraftforge.client.model.obj.Vertex;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
 import cpw.mods.fml.common.FMLLog;
+import su.sergiusonesimus.tebreaker.mixin.interfaces.IMixinMinecraft;
 
 public class BreakTextureGenerator {
+
+    public static boolean texturesLoaded = false;
 
     public static ResourceLocation[] chestdestructionTextures = null;
 
@@ -714,7 +717,8 @@ public class BreakTextureGenerator {
         DynamicTexture dynamicTexture = new DynamicTexture(image);
 
         ResourceLocation resource = new ResourceLocation("dynamictextures:" + name);
-        Minecraft.getMinecraft().renderEngine.loadTexture(resource, dynamicTexture);
+        // Minecraft.getMinecraft().renderEngine.loadTexture(resource, dynamicTexture);
+        ((IMixinMinecraft) Minecraft.getMinecraft()).registerTextureToLoad(resource, dynamicTexture);
 
         return resource;
     }
@@ -731,7 +735,6 @@ public class BreakTextureGenerator {
                 ImageIO.write(image, "PNG", outputFile);
 
                 FMLLog.info("Saved texture: %s", outputFile.getAbsolutePath());
-
             } catch (IOException e) {
                 FMLLog.severe("Failed to save texture %s: %s", filename, e.getMessage());
             }
