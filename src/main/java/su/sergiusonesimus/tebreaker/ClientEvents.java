@@ -15,7 +15,9 @@ public class ClientEvents {
         for (GeneratorData data : ClientProxy.generationMaterials) {
             ClientProxy.destructionTextures.put(data.modelName, BreakTextureGenerator.generateBreakTextures(data));
         }
-        ClientProxy.generationMaterials.clear();
+        // Commented this out for better resource packs compatibility
+        // With it in place all the models from that list won't get their textures updated on resource pack change
+        // ClientProxy.generationMaterials.clear();
 
         ClientProxy.destructionTextures
             .put(TileEntityBreaker.DOUBLE_CHEST_LEFT, BreakTextureGenerator.generateDoubleChestBreakTextures(false));
