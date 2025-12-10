@@ -1,18 +1,17 @@
 {
   "required": true,
   "minVersion": "0.8.5-GTNH",
-  "plugin": "su.sergiusonesimus.tebreaker.mixin.Mixins",
   "package": "su.sergiusonesimus.tebreaker.mixin.mixins",
   "refmap": "mixins.tebreaker.refmap.json",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
   "mixins": [],
   "client": [
-	"MixinMinecraft",
-	"MixinTextureMap",
-	"MixinTileEntityChestRenderer",
-	"MixinTileEntityRendererDispatcher",
-	"MixinTileEntitySpecialRenderer"
+	"tebreaker.MixinMinecraft",
+	"tebreaker.MixinTextureMap",
+	"tebreaker.MixinTileEntityChestRenderer",
+	"tebreaker.MixinTileEntityRendererDispatcher",
+	"tebreaker.MixinTileEntitySpecialRenderer"
   ],
   "server": []
 }
