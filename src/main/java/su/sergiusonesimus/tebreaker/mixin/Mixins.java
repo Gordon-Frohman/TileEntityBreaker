@@ -17,6 +17,7 @@ public enum Mixins {
         .setPhase(Phase.EARLY)
         .addMixinClasses(
             "MixinMinecraft",
+            "MixinRenderBlocks",
             "MixinTextureMap",
             "MixinTileEntityChestRenderer",
             "MixinTileEntityRendererDispatcher",
