@@ -42,6 +42,7 @@ public class TileEntityBreaker {
     public static boolean isBetterStorageLoaded;
     public static boolean areIronChestsLoaded;
     public static boolean isThaumcraftLoaded;
+    public static boolean isEtFuturumRequiemLoaded;
 
     private static final String VANILLA = "mc_";
 
@@ -76,6 +77,7 @@ public class TileEntityBreaker {
         isBetterStorageLoaded = Loader.isModLoaded("betterstorage");
         areIronChestsLoaded = Loader.isModLoaded("IronChest");
         isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
+        isEtFuturumRequiemLoaded = Loader.isModLoaded("etfuturum");
     }
 
     @EventHandler

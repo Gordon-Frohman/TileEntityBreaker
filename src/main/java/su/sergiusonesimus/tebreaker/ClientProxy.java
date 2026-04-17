@@ -31,6 +31,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import su.sergiusonesimus.tebreaker.BreakTextureGenerator.GeneratorData;
 import su.sergiusonesimus.tebreaker.integration.BetterStorageIntegration;
+import su.sergiusonesimus.tebreaker.integration.EtFuturumRequiemIntegration;
 import su.sergiusonesimus.tebreaker.integration.IronChestsIntegration;
 import su.sergiusonesimus.tebreaker.integration.ThaumcraftIntegration;
 
@@ -95,6 +96,7 @@ public class ClientProxy extends CommonProxy {
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
+        if (TileEntityBreaker.isEtFuturumRequiemLoaded) EtFuturumRequiemIntegration.registerTileEntities();
     }
 
     @Override
