@@ -24,12 +24,14 @@ import su.sergiusonesimus.tebreaker.TileEntityBreaker;
 
 public class BetterStorageIntegration {
 
-    public static final String LOCKER = "locker";
-    public static final String DOUBLE_LOCKER_TOP = "double_locker_top";
-    public static final String DOUBLE_LOCKER_BOTTOM = "double_locker_bottom";
-    public static final String BACKPACK = "backpack";
-    public static final String ARMOR_STAND = "armor_stand";
-    public static final String PRESENT = "present";
+    public static final String BETTERSTORAGE = "bs_";
+
+    public static final String LOCKER = BETTERSTORAGE + "locker";
+    public static final String DOUBLE_LOCKER_TOP = BETTERSTORAGE + "double_locker_top";
+    public static final String DOUBLE_LOCKER_BOTTOM = BETTERSTORAGE + "double_locker_bottom";
+    public static final String BACKPACK = BETTERSTORAGE + "backpack";
+    public static final String ARMOR_STAND = BETTERSTORAGE + "armor_stand";
+    public static final String PRESENT = BETTERSTORAGE + "present";
 
     public static void registerTileEntities()
         throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {

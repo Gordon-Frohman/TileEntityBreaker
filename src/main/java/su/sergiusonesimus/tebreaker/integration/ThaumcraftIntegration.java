@@ -50,32 +50,33 @@ import thaumcraft.common.tiles.TileVisRelay;
 public class ThaumcraftIntegration {
 
     public static final String THAUMCRAFT = "thaumcraft";
+    public static final String TC = "tc_";
 
-    public static final String ALCHEMY_FURNACE = "alch_furnace";
-    public static final String ALCHEMY_FURNACE_TANK = "alch_furnace_tank";
-    public static final String ALEMBIC = "alembic";
-    public static final String ARCANE_BORE = "arcane_bore";
-    public static final String ARCANE_WORKBENCH = "arcane_workbench";
-    public static final String BANNER = "banner";
-    public static final String BELLOWS = "bellows";
-    public static final String CENTRIFUGE = "centrifuge";
-    public static final String CRYSTAL = "crystal";
-    public static final String OBELISK_CAP = "obelisk_cap";
-    public static final String CRAB_VENT = "crab_vent";
-    public static final String ELDRITCH_CRYSTAL = "eldritch_crystal";
-    public static final String ELDRITCH_OBELISK = "eldritch_obelisk";
-    public static final String ESSENTIA_CRYSTALIZER = "essentia_crystalizer";
-    public static final String ESSENTIA_RESERVOIR = "essentia_reservoir";
-    public static final String INFUSION_PILLAR = "infusion_pillar";
-    public static final String JAR = "jar";
-    public static final String MANA_POD = "mana_pod";
-    public static final String NODE_STABILIZER = "node_stabilizer";
-    public static final String RESEARCH_TABLE_RIGHT = "research_table_right";
-    public static final String RESEARCH_TABLE_LEFT = "research_table_left";
+    public static final String ALCHEMY_FURNACE = TC + "alch_furnace";
+    public static final String ALCHEMY_FURNACE_TANK = TC + "alch_furnace_tank";
+    public static final String ALEMBIC = TC + "alembic";
+    public static final String ARCANE_BORE = TC + "arcane_bore";
+    public static final String ARCANE_WORKBENCH = TC + "arcane_workbench";
+    public static final String BANNER = TC + "banner";
+    public static final String BELLOWS = TC + "bellows";
+    public static final String CENTRIFUGE = TC + "centrifuge";
+    public static final String CRYSTAL = TC + "crystal";
+    public static final String OBELISK_CAP = TC + "obelisk_cap";
+    public static final String CRAB_VENT = TC + "crab_vent";
+    public static final String ELDRITCH_CRYSTAL = TC + "eldritch_crystal";
+    public static final String ELDRITCH_OBELISK = TC + "eldritch_obelisk";
+    public static final String ESSENTIA_CRYSTALIZER = TC + "essentia_crystalizer";
+    public static final String ESSENTIA_RESERVOIR = TC + "essentia_reservoir";
+    public static final String INFUSION_PILLAR = TC + "infusion_pillar";
+    public static final String JAR = TC + "jar";
+    public static final String MANA_POD = TC + "mana_pod";
+    public static final String NODE_STABILIZER = TC + "node_stabilizer";
+    public static final String RESEARCH_TABLE_RIGHT = TC + "research_table_right";
+    public static final String RESEARCH_TABLE_LEFT = TC + "research_table_left";
     public static final String[] RUNIC_MATRIX = new String[8];
-    public static final String TABLE = "table";
-    public static final String THAUMATORIUM = "thaumatorium";
-    public static final String VIS_RELAY = "vis_relay";
+    public static final String TABLE = TC + "table";
+    public static final String THAUMATORIUM = TC + "thaumatorium";
+    public static final String VIS_RELAY = TC + "vis_relay";
 
     public static void registerTileEntities()
         throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
@@ -321,7 +322,7 @@ public class ThaumcraftIntegration {
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
                     int ordinal = i << 2 | j << 1 | k;
-                    RUNIC_MATRIX[ordinal] = "runic_matrix_" + ordinal;
+                    RUNIC_MATRIX[ordinal] = TC + "runic_matrix_" + ordinal;
                     field1 = modelCube.getClass()
                         .getDeclaredField("cube");
                     field1.setAccessible(true);

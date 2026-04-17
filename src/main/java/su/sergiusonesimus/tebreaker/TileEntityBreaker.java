@@ -43,12 +43,14 @@ public class TileEntityBreaker {
     public static boolean areIronChestsLoaded;
     public static boolean isThaumcraftLoaded;
 
-    public static final String CHEST = "chest";
-    public static final String DOUBLE_CHEST_LEFT = "double_chest_left";
-    public static final String DOUBLE_CHEST_RIGHT = "double_chest_right";
-    public static final String SIGN = "sign";
-    public static final String SKULL = "skull";
-    public static final String ZOMBIE_SKULL = "zombie_skull";
+    private static final String VANILLA = "mc_";
+
+    public static final String CHEST = VANILLA + "chest";
+    public static final String DOUBLE_CHEST_LEFT = VANILLA + "double_chest_left";
+    public static final String DOUBLE_CHEST_RIGHT = VANILLA + "double_chest_right";
+    public static final String SIGN = VANILLA + "sign";
+    public static final String SKULL = VANILLA + "skull";
+    public static final String ZOMBIE_SKULL = VANILLA + "zombie_skull";
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {

@@ -171,7 +171,7 @@ public enum Mixins {
         private final List<TargetedMod> targetedMods = new ArrayList<>();
         private final List<TargetedMod> excludedMods = new ArrayList<>();
 
-        public Builder(@SuppressWarnings("unused") String description) {}
+        public Builder(String description) {}
 
         public Builder addMixinClasses(String... mixinClasses) {
             this.mixinClasses.addAll(Arrays.asList(mixinClasses));
@@ -188,6 +188,7 @@ public enum Mixins {
             return this;
         }
 
+        @SuppressWarnings("unused")
         public Builder setApplyIf(Supplier<Boolean> applyIf) {
             this.applyIf = applyIf;
             return this;
@@ -198,13 +199,13 @@ public enum Mixins {
             return this;
         }
 
+        @SuppressWarnings("unused")
         public Builder addExcludedMod(TargetedMod mod) {
             this.excludedMods.add(mod);
             return this;
         }
     }
 
-    @SuppressWarnings("SimplifyStreamApiCallChains")
     private static String[] addPrefix(String prefix, String... values) {
         return Arrays.stream(values)
             .map(s -> prefix + s)
