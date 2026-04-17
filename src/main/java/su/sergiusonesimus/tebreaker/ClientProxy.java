@@ -59,16 +59,18 @@ public class ClientProxy extends CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         ModelChest chest = new ModelChest();
         registerModel(TileEntityBreaker.CHEST, 64, 64, chest.chestBelow, chest.chestKnob, chest.chestLid);
-        registerTileEntity(TileEntityEnderChest.class, TileEntityBreaker.CHEST);
-        registerTileEntity(TileEntityChest.class, (te) -> {
-            TileEntityChest teChest = (TileEntityChest) te;
-            if (teChest.adjacentChestZNeg == null && teChest.adjacentChestXNeg == null
-                && teChest.adjacentChestXPos == null
-                && teChest.adjacentChestZPos == null) {
-                return TileEntityBreaker.CHEST;
-            }
-            return "";
-        });
+        if (!TileEntityBreaker.isEtFuturumRequiemLoaded) {
+            registerTileEntity(TileEntityEnderChest.class, TileEntityBreaker.CHEST);
+            registerTileEntity(TileEntityChest.class, (te) -> {
+                TileEntityChest teChest = (TileEntityChest) te;
+                if (teChest.adjacentChestZNeg == null && teChest.adjacentChestXNeg == null
+                    && teChest.adjacentChestXPos == null
+                    && teChest.adjacentChestZPos == null) {
+                    return TileEntityBreaker.CHEST;
+                }
+                return "";
+            });
+        }
 
         ModelSign sign = new ModelSign();
         registerModel(TileEntityBreaker.SIGN, 64, 32, sign.signBoard, sign.signStick);

@@ -1,6 +1,7 @@
 package su.sergiusonesimus.tebreaker.mixin.mixins.early;
 
 import net.minecraft.client.model.ModelChest;
+import net.minecraft.client.model.ModelLargeChest;
 import net.minecraft.client.renderer.DestroyBlockProgress;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
@@ -8,7 +9,6 @@ import net.minecraft.tileentity.TileEntityChest;
 
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,16 +23,13 @@ import su.sergiusonesimus.tebreaker.TileEntityBreaker;
 @Mixin(TileEntityChestRenderer.class)
 public class MixinTileEntityChestRenderer extends MixinTileEntitySpecialRenderer {
 
-    @Shadow(remap = false)
-    private ModelChest field_147511_i;
-
     @Inject(
         method = "renderTileEntityAt",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelChest;renderAll()V", shift = Shift.AFTER),
         locals = LocalCapture.CAPTURE_FAILHARD)
     public void renderTileEntityAt(TileEntityChest te, double dX, double dY, double dZ, float partialTicks,
         CallbackInfo ci, @Local(name = "modelchest") ModelChest modelchest) {
-        if (modelchest == this.field_147511_i) {
+        if (!TileEntityBreaker.isEtFuturumRequiemLoaded && modelchest instanceof ModelLargeChest) {
             DestroyBlockProgress destroyBlockProgress = TileEntityBreaker.getTileEntityDestroyProgress(te);
             TileEntityChest neighbourTE = te.adjacentChestXPos != null ? te.adjacentChestXPos : te.adjacentChestZPos;
             DestroyBlockProgress destroyNeighboutBlockProgress = TileEntityBreaker
