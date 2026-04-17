@@ -31,7 +31,11 @@ public class MixinTileEntityReinforcedChestRenderer extends MixinTileEntitySpeci
     @Inject(
         method = "renderTileEntityAt",
         remap = false,
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelChest;renderAll()V", shift = Shift.AFTER),
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/model/ModelChest;renderAll()V",
+            remap = true,
+            shift = Shift.AFTER),
         locals = LocalCapture.CAPTURE_FAILHARD)
     public void renderTileEntityAt(TileEntityReinforcedChest chest, double x, double y, double z, float partialTicks,
         CallbackInfo ci, @Local(name = "model") ModelChest model) {
