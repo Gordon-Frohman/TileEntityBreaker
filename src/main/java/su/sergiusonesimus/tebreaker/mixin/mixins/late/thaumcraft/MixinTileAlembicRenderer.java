@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import su.sergiusonesimus.tebreaker.mixin.mixins.tebreaker.MixinTileEntitySpecialRenderer;
+import su.sergiusonesimus.tebreaker.mixin.mixins.early.MixinTileEntitySpecialRenderer;
 import thaumcraft.client.renderers.tile.TileAlembicRenderer;
 
 @Mixin(TileAlembicRenderer.class)

@@ -11,7 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import su.sergiusonesimus.tebreaker.ClientProxy;
 import su.sergiusonesimus.tebreaker.TileEntityBreaker;
 import su.sergiusonesimus.tebreaker.integration.ThaumcraftIntegration;
-import su.sergiusonesimus.tebreaker.mixin.mixins.tebreaker.MixinTileEntitySpecialRenderer;
+import su.sergiusonesimus.tebreaker.mixin.mixins.early.MixinTileEntitySpecialRenderer;
 import thaumcraft.client.renderers.tile.TileEssentiaCrystalizerRenderer;
 import thaumcraft.common.tiles.TileEssentiaCrystalizer;
 

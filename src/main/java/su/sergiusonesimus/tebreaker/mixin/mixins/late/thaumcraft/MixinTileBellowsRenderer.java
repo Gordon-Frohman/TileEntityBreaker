@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import com.llamalad7.mixinextras.sugar.Local;
 
-import su.sergiusonesimus.tebreaker.mixin.mixins.tebreaker.MixinTileEntitySpecialRenderer;
+import su.sergiusonesimus.tebreaker.mixin.mixins.early.MixinTileEntitySpecialRenderer;
 import thaumcraft.client.renderers.models.ModelBellows;
 import thaumcraft.client.renderers.tile.TileBellowsRenderer;
 import thaumcraft.common.tiles.TileBellows;

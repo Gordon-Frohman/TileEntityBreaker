@@ -1,4 +1,4 @@
-package su.sergiusonesimus.tebreaker.mixin.mixins.tebreaker;
+package su.sergiusonesimus.tebreaker.mixin.mixins.early;
 
 import java.util.HashMap;
 import java.util.Map;

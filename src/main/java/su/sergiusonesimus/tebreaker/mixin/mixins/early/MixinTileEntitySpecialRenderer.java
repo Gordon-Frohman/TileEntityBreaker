@@ -1,4 +1,4 @@
-package su.sergiusonesimus.tebreaker.mixin.mixins.tebreaker;
+package su.sergiusonesimus.tebreaker.mixin.mixins.early;
 
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

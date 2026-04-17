@@ -12,6 +12,16 @@ import cpw.mods.fml.relauncher.FMLLaunchHandler;
 
 public enum Mixins {
 
+    VANILLA(new Builder("").addTargetedMod(TargetedMod.VANILLA)
+        .setSide(Side.CLIENT)
+        .setPhase(Phase.EARLY)
+        .addMixinClasses(
+            "MixinMinecraft",
+            "MixinTextureMap",
+            "MixinTileEntityChestRenderer",
+            "MixinTileEntityRendererDispatcher",
+            "MixinTileEntitySpecialRenderer")),
+
     BETTERSTORAGE_COMPAT(
         new Builder("Fix backpack changing breaking texture color and allow separate breaking of double containers")
             .addTargetedMod(TargetedMod.BETTERSTORAGE)

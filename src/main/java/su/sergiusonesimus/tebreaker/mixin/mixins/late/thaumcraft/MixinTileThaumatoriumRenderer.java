@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import su.sergiusonesimus.tebreaker.ClientProxy;
 import su.sergiusonesimus.tebreaker.TileEntityBreaker;
 import su.sergiusonesimus.tebreaker.integration.ThaumcraftIntegration;
-import su.sergiusonesimus.tebreaker.mixin.mixins.tebreaker.MixinTileEntitySpecialRenderer;
+import su.sergiusonesimus.tebreaker.mixin.mixins.early.MixinTileEntitySpecialRenderer;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileThaumatoriumRenderer;
 import thaumcraft.common.tiles.TileThaumatorium;

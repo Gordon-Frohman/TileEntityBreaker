@@ -20,7 +20,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import su.sergiusonesimus.tebreaker.ClientProxy;
 import su.sergiusonesimus.tebreaker.TileEntityBreaker;
-import su.sergiusonesimus.tebreaker.mixin.mixins.tebreaker.MixinTileEntitySpecialRenderer;
+import su.sergiusonesimus.tebreaker.mixin.mixins.early.MixinTileEntitySpecialRenderer;
 
 @Mixin(TileEntityReinforcedChestRenderer.class)
 public class MixinTileEntityReinforcedChestRenderer extends MixinTileEntitySpecialRenderer {
