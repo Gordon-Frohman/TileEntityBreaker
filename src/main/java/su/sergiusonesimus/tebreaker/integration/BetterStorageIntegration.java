@@ -9,8 +9,10 @@ import net.mcft.betterstorage.client.model.ModelArmorStand;
 import net.mcft.betterstorage.client.model.ModelBackpack;
 import net.mcft.betterstorage.client.model.ModelLargeLocker;
 import net.mcft.betterstorage.client.model.ModelLocker;
+import net.mcft.betterstorage.client.model.ModelPresent;
 import net.mcft.betterstorage.tile.entity.TileEntityBackpack;
 import net.mcft.betterstorage.tile.entity.TileEntityLocker;
+import net.mcft.betterstorage.tile.entity.TileEntityPresent;
 import net.mcft.betterstorage.tile.entity.TileEntityReinforcedChest;
 import net.mcft.betterstorage.tile.stand.TileEntityArmorStand;
 import net.minecraft.client.model.ModelRenderer;
@@ -27,6 +29,7 @@ public class BetterStorageIntegration {
     public static final String DOUBLE_LOCKER_BOTTOM = "double_locker_bottom";
     public static final String BACKPACK = "backpack";
     public static final String ARMOR_STAND = "armor_stand";
+    public static final String PRESENT = "present";
 
     public static void registerTileEntities()
         throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
@@ -90,6 +93,13 @@ public class BetterStorageIntegration {
             (ModelRenderer) legs.get(armorStand));
         TileEntityBreaker.registerTileEntity(TileEntityArmorStand.class, ARMOR_STAND);
         TileEntityBreaker.registerOffset(TileEntityArmorStand.class, 0, 1, 0);
+
+        ModelPresent present = new ModelPresent();
+        TileEntityBreaker.registerTileEntity(TileEntityPresent.class, PRESENT);
+        model = present.getClass()
+            .getDeclaredField("model");
+        model.setAccessible(true);
+        TileEntityBreaker.registerModel(PRESENT, 16, 16, (WavefrontObject) model.get(present));
     }
 
     public static ResourceLocation[] generateDoubleLockerBreakTextures(boolean topPart)

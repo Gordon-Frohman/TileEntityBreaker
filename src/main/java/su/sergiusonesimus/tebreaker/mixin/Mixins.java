@@ -21,8 +21,9 @@ public enum Mixins {
                 addPrefix(
                     "betterstorage.",
                     "MixinTileEntityBackpackRenderer",
-                    "MixinTileEntityReinforcedChestRenderer",
-                    "MixinTileEntityLockerRenderer"))),
+                    "MixinTileEntityLockerRenderer",
+                    "MixinTileEntityPresentRenderer",
+                    "MixinTileEntityReinforcedChestRenderer"))),
 
     THAUMCRAFT_COMPAT(
         new Builder("Bypass stupid Thaumcraft rendering system to allow breaking textures to render properly")
